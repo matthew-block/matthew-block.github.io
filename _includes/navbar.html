@@ -1,4 +1,4 @@
-<div class="grid nav-full-styles fixed-top-full">
+<div class="grid nav-full-styles">
 <div class="col-sm-12 nav wrapper"> 
   <div class="hamburg"><img src="/assets/img/menu.svg"/></div>
       <ul>
@@ -7,24 +7,7 @@
       </li>
       {% for collections in site.collections reversed %}
     <li>
-        <a href="#">{{ collections.label }}</a>
-          <ul>
-            <li class="mbg">
-              <a href="/{{ collections.label }}">View All {{ collections.label }}</a>
-            </li>
-          {% for docs in collections.docs %}
-            {% if docs.dropdown != "secondary" %}
-          <li>
-            <a href="{{ docs.url }}">{{ docs.title }}</a>
-          </li>
-            {% endif %}
-          {% endfor %}
-          {% if collections.label == "products" %}
-          <li class="mbg">
-            <a href="/{{ collections.label }}">Other {{ collections.label }}</a>
-          </li>
-          {% endif %}
-        </ul>
+        <a href="/{{ collections.label }}">{{ collections.label }}</a>
       </li>
       {% endfor %}
 

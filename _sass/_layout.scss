@@ -17,24 +17,18 @@ html
 
 body
 {
-  background: url('/assets/img/background.png') repeat;
+  background-color: $content-island-color;
   word-wrap: break-word;
   height: 100%;
   font-family: $sitewide-fonts;
   font-size: 20px;
-  background-color: #5c5c5c;
 }
 
 //top-level content background
 div.content-island
 {
     background-color: $content-island-color;
-    margin-bottom: $sitewide-island-divide;
-    box-shadow: -3px 3px 10px 1px #382d1e;
-    //border-top: 8px ridge $secondary;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    padding:  10px 30px;
+    padding:  10px 20px;
 }
 
 //gallery utilities
@@ -85,5 +79,5 @@ img.gallery-item
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #00406b;
+  background-color: #131313;
 }

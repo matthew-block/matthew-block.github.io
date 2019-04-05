@@ -2,49 +2,23 @@
 layout: default
 ---
 
-<!-- Header -->
-<div class="mdiv">
-{% include big_hero.html url="header.png" width="100%" message=site.title %}
-</div>
-
 <div class="grid">
     <div class="col-sm-12 content-island">
-        <h1 class="center">Welcome</h1>
+        <h2>Welcome</h2>
         <hr class="divstrip">
-        <p class="center">
-            {{ content }}
-</p>
-
-</div>
-
-    <div class="col-md-8 content-island" style="display: none;">
-        <div class="relative-container">
-        <div class="inset scroll">
-            {% for product in site.products %}
-                {% assign raw_name = product.images | first %}
-                {% assign name = "gallery/" | append: raw_name.image %}
-                <a href="{{ product.url }}" style="text-decoration: none;">
-                {% include hero.html url=name width="300px" message=product.title %}
-                </a>
-            {% endfor %}
-            <div class="hover-title">Products</div>
-        </div>
-    </div>
+        {{ content }}
     </div>
 
+    <div class="col-sm-12 content-island">
+        <h2>About</h2>
+        <hr class="divstrip">
+        {% include page.html name="about" %}
+    </div>
 
-    <div class="col-md-4 content-island" style="display: none;">
-        <h4 class="center">Recent Newsletters</h4>
-        <hr class="divstrip"/>
-        <ul>
-                {% for newsletter in site.newsletters limit:4 %}
-                    <li>
-                    <a href="{{ newsletter.url }}" style="text-decoration: none;">
-                        {{ newsletter.title }}
-                    </a>
-                    </li>
-                {% endfor %}
-        </ul>
+    <div class="col-sm-12 content-island">
+        <h2>Contact</h2>
+        <hr class="divstrip">
+        {% include page.html name="contact" %}
     </div>
 
 </div>

@@ -1,7 +1,7 @@
 $mobile-breakpoint: md;
 $font-size: 22px;
-$main-background-color: #00406b;
-$nested-background-color: #005c89;
+$main-background-color: #131313;
+$nested-background-color: #313131;
 $text-color: #fcfcfc;
 $border-color: $text-color;
 
@@ -17,7 +17,6 @@ div.nav {
     background-color: $main-background-color;
     display: none;
     text-align: left;
-    border-left: 4px solid $border-color;
     img {
       display: inline-block;
       vertical-align: top;
@@ -38,7 +37,7 @@ div.nav {
       text-transform: capitalize;
       a {
         display: block;
-        padding: 16px 10px;
+        padding: 20px 14px;
         text-decoration: none;
         color: $text-color;
         text-align: center;
@@ -83,7 +82,7 @@ div.nav {
     ul {
       display: none;
       position: absolute;
-      width: 50%;
+      width: 100%; //change here for different width on small screen
     }
     div.hamburg:hover ~ ul,
     ul:hover,
@@ -94,7 +93,7 @@ div.nav {
       li {
         float: none;
         position: relative;
-        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
         a:hover ~ ul,
         ul:hover,
         a:active ~ ul {
@@ -113,8 +112,6 @@ div.nav {
 .nav-full-styles
 {
   background-color: $main-background-color;
-  box-shadow: -3px 3px 10px 1px #382d1e;
-  border-bottom: 3px solid $border-color;
 }
 
 .fixed-top-full
@@ -123,10 +120,4 @@ div.nav {
   top: 0;
   width: 100%;
   z-index: 99999;
-}
-
-.nav-margin
-{
-  padding-top: 71px;
-  padding-bottom: 48px;
 }

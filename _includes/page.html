@@ -1,0 +1,6 @@
+{% assign filename = include.name | append: ".md" %}
+{% for page in site.pages %}
+    {% if page.name == filename %}
+        {{ page.content | markdownify }}
+    {% endif %}
+{% endfor %}
