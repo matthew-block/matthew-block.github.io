@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<div class="col-sm-12 content-island">
+        <h1 class="bar">{{ page.title }}</h1>
+        {{ content }}
+    </div>
+    
+    {% for newsletter in site.newsletters %}
+      <div class="col-sm-12 content-island">
+        <a href="{{ newsletter.url }}">
+          <p style="border-bottom: 1px solid black"><span style="font-weight: bold">{{ newsletter.title }}</span> - {{ newsletter.date | date_to_long_string }}</p>
+        </a>
+        {{ newsletter.content | markdownify | strip_html | truncatewords: 50 }}...
+      </div>
+    {% endfor %}

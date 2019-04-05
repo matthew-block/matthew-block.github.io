@@ -1,0 +1,13 @@
+<div class="overlay-container" style="width: {{ include.width }}">
+
+        <img src="/assets/img/{{ include.url }}" width="100%">
+    
+        {% if include.message %}
+        <div class="overlay">
+            <div class="overlay-textbox">
+                <h2>{{ include.message }}</h2>
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>

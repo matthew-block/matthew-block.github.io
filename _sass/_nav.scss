@@ -1,0 +1,132 @@
+$mobile-breakpoint: md;
+$font-size: 22px;
+$main-background-color: #00406b;
+$nested-background-color: #005c89;
+$text-color: #fcfcfc;
+$border-color: $text-color;
+
+.mbg
+{
+  background-color: $main-background-color;
+}
+
+div.nav {
+  position: relative;
+  font-size: $font-size;
+  div.hamburg {
+    background-color: $main-background-color;
+    display: none;
+    text-align: left;
+    border-left: 4px solid $border-color;
+    img {
+      display: inline-block;
+      vertical-align: top;
+      padding-left: 10px;
+      width: 60px;
+    }
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    float: left;
+    background-color: $main-background-color;
+    li {
+      float: left;
+      position: relative;
+      text-transform: capitalize;
+      a {
+        display: block;
+        padding: 16px 10px;
+        text-decoration: none;
+        color: $text-color;
+        text-align: center;
+      }
+      a:hover {
+        background-color: $border-color;
+        color: $main-background-color;
+      }
+      a:hover ~ ul,
+      ul:hover,
+      a:active ~ ul {
+        display: block;
+      }
+
+      ul {
+        background-color: $nested-background-color;
+        position: absolute;
+        display: none;
+        width: auto;
+        li {
+          display: block;
+          white-space: nowrap;
+          width: 100%;
+          border-bottom: 1px solid $border-color;
+          a {
+            padding: 8px 10px;
+          }
+        }
+        li:first-child {
+          border-top: 1px solid $border-color;
+          background-color: $main-background-color;
+        }
+      }
+    }
+  }
+
+  //break for mobile
+  @media (max-width: map-get($breaks, $mobile-breakpoint)) {
+    div.hamburg {
+      display: block;
+    }
+    ul {
+      display: none;
+      position: absolute;
+      width: 50%;
+    }
+    div.hamburg:hover ~ ul,
+    ul:hover,
+    div.hamburg:active ~ ul {
+      display: block;
+    }
+    ul {
+      li {
+        float: none;
+        position: relative;
+        border-bottom: 1px solid $border-color;
+        a:hover ~ ul,
+        ul:hover,
+        a:active ~ ul {
+          position: absolute;
+          left: 100%;
+          top: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+  //end mobile
+}
+
+//utility
+.nav-full-styles
+{
+  background-color: $main-background-color;
+  box-shadow: -3px 3px 10px 1px #382d1e;
+  border-bottom: 3px solid $border-color;
+}
+
+.fixed-top-full
+{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+}
+
+.nav-margin
+{
+  padding-top: 71px;
+  padding-bottom: 48px;
+}
