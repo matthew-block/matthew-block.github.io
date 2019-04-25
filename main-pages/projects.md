@@ -3,5 +3,3 @@ title: Projects
 layout: projects
 permalink: projects/
 ---
-
-<h4 style="text-align: center;">Coming soon!</h4>

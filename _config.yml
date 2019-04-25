@@ -57,6 +57,6 @@ collections:
  projects:
   output: true
   permalink: /:collection/:name
- posts:
+ devblog:
   output: true
   permalink: /:collection/:name
