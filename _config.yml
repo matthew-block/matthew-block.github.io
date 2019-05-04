@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   REPLACE
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "X" # the base hostname & protocol for your site, e.g. http://example.com
-linkedin: https://www.linkedin.com/in/mtblock/
+linkedin: "https://www.linkedin.com/in/mtblock/"
 github:  X
 
 # Build settings
