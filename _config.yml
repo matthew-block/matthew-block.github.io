@@ -19,8 +19,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   REPLACE
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "X" # the base hostname & protocol for your site, e.g. http://example.com
-linkedin_link: https://www.linkedin.com/in/mtblock/
-github_link:  X
+linkedin: https://www.linkedin.com/in/mtblock/
+github:  X
 
 # Build settings
 markdown: kramdown
@@ -57,6 +57,6 @@ collections:
  projects:
   output: true
   permalink: /:collection/:name
- devblog:
+ devblogs:
   output: true
   permalink: /:collection/:name

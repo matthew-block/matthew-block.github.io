@@ -12,6 +12,6 @@ layout: default
         <a href="{{ project.url }}">
           <p style="border-bottom: 1px solid black"><span style="font-weight: bold">{{ project.title }}</span> - {{ project.date | date_to_long_string }}</p>
         </a>
-        {{ project.content | markdownify | strip_html | truncatewords: 50 }}...
+        {{ project.content | markdownify | strip_html | truncatewords: 50 }}
       </div>
 {% endfor %}
