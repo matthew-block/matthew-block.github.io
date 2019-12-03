@@ -1,2 +1,7 @@
 @import "variables";
 @import '../node_modules/bootstrap/scss/bootstrap';
+
+.highcharts-credits {
+    display: none !important;
+  }
+  

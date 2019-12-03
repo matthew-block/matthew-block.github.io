@@ -1,15 +1,20 @@
 <div class="container">
-  <br/>
-  <h2>UW-Stout C++ Security Vulnerability Checker</h2>
-  <p>This tool will analyze your repository and provide both a full output of all 
-    vulnerabilities found and a graph representation of the vulnerabilities. Please 
-    upload your repository below and wait to be redirected to the results page.</p>
-  <form action="" method="post">
-    <div class="form-group">
-      <label for="repo">Upload a zip of the repository to analyze</label>
-      <input type="file" class="form-control-file" id="repo" aria-describedby="repoHelp" placeholder="Upload Zip">
-      <small id="repoHelp" class="form-text text-muted">This will be deleted after analysis.</small>
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="this.toggle = !this.toggle">Temporary Toggle</button>
     </div>
-    <button type="submit" class="btn btn-primary">Submit File</button>
-  </form>
+  </div>
 </div>
+<!--*** upload ***-->
+<div class="container" *ngIf="!this.toggle">
+  <br />
+  <h2>UW-Stout C++ Security Vulnerability Checker</h2>
+  <p>This tool will analyze your repository and provide both a full output of all
+    vulnerabilities found and a graph representation of the vulnerabilities. Please
+    upload your repository below and wait to be redirected to the results page.</p>
+  <app-upload-form></app-upload-form>
+</div>
+
+<!--*** graphs ***-->
+
+<app-graphs *ngIf="this.toggle"></app-graphs>

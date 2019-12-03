@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'matthew-block-github-io';
+  // --- layout ---
+  private toggle = false;
+
+  constructor() {
+    
+  }
+
+  ngOnInit() {
+  }
 }

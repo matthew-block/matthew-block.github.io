@@ -1,0 +1,20 @@
+<div>
+    <div *ngIf="this.error">
+        {{ error.message }}
+    </div>
+    <div *ngIf="this.uploadResponse.status === 'error'">
+        {{ uploadResponse.message }}
+    </div>
+    <div *ngIf="this.uploadResponse.status === 'progress'">
+        <div role="progressbar" [style.width.%]="this.uploadResponse.message" aria-valuenow="25" aria-valuemin="0"
+            aria-valuemax="100">
+            {{uploadResponse.message}}%
+        </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
+            <input type="file" class="form-control-file" name='file' aria-describedby="repoHelp"
+                placeholder="Upload Zip" (change)="onFileChange($event)">
+                <br/>
+            <button type="submit" class="btn btn-primary">Submit File</button>
+    </form>
+</div>
