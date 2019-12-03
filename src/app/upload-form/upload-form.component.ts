@@ -13,10 +13,10 @@ export class UploadFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
-  private destinationUrl: string = '18.220.134.135/returnTestResults';
-  private form: FormGroup;
-  private error: string;
-  private uploadResponse: { status: string, message };
+  destinationUrl: string = '18.220.134.135/returnTestResults';
+  form: FormGroup;
+  error: { status: string, message };
+  uploadResponse: { status: string, message };
 
   ngOnInit() {
     this.form = this.formBuilder.group({

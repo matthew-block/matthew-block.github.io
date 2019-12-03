@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   // --- layout ---
-  private toggle = false;
+  toggle = false;
 
   constructor() {
     

@@ -12,17 +12,17 @@ export class GraphsComponent implements OnInit {
   constructor() { }
 
   // --- chart data ---
-  private c1: typeof Highcharts;
-  private c1o: Highcharts.Options;
+  c1: typeof Highcharts;
+  c1o: Highcharts.Options;
 
-  private c2: typeof Highcharts;
-  private c2o: Highcharts.Options;
+  c2: typeof Highcharts;
+  c2o: Highcharts.Options;
 
-  private c3: typeof Highcharts;
-  private c3o: Highcharts.Options;
+  c3: typeof Highcharts;
+  c3o: Highcharts.Options;
 
-  private c4: typeof Highcharts;
-  private c4o: Highcharts.Options;
+  c4: typeof Highcharts;
+  c4o: Highcharts.Options;
 
   ngOnInit() {
     const uf: number = 2;
