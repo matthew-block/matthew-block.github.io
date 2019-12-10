@@ -2,6 +2,7 @@
     <div *ngIf="this.error">
         {{ error.message }}
     </div>
+    <div *ngIf="this.uploadResponse">
     <div *ngIf="this.uploadResponse.status === 'error'">
         {{ uploadResponse.message }}
     </div>
@@ -10,6 +11,7 @@
             aria-valuemax="100">
             {{uploadResponse.message}}%
         </div>
+    </div>
     </div>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
             <input type="file" class="form-control-file" name='file' aria-describedby="repoHelp"

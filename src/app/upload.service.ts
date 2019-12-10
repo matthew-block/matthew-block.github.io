@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 /**
  * referenced 
@@ -15,7 +16,10 @@ import { map } from 'rxjs/operators';
 
 export class UploadService {
 
-  constructor(private http: HttpClient) { }
+  private fileSubject: Subject<string> = new Subject<string>();
+
+  constructor(private http: HttpClient) { 
+  }
 
   public upload(body, url: string) {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
@@ -31,6 +35,7 @@ export class UploadService {
           return { status: 'progress', message: `${progress}` };
         }
         case HttpEventType.Response: {
+          this.fileSubject.next(event.body);
           return {status: 'result', message: event.body };
         }
         default: {
@@ -39,5 +44,9 @@ export class UploadService {
       }
     })
     );
+  }
+
+  public getUploadedFiles(): Subject<string> {
+    return this.fileSubject;
   }
 }

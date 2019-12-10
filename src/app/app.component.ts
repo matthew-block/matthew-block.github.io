@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
+import { UploadService } from './upload.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // --- layout ---
   toggle = false;
+  file = '';
 
-  constructor() {
-    
+  constructor(private uploadService: UploadService) {    
+    uploadService.getUploadedFiles().subscribe(file => {
+      this.toggle = true;
+      this.file = file;
+    });
   }
 
   ngOnInit() {

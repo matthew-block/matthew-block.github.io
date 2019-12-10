@@ -13,7 +13,9 @@ export class UploadFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
-  destinationUrl: string = '18.220.134.135/returnTestResults';
+  destinationUrl: string = 'http://18.220.134.135/returnTestResults';
+  // TODO MB fix cors on backend
+  proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   form: FormGroup;
   error: { status: string, message };
   uploadResponse: { status: string, message };
@@ -35,9 +37,15 @@ export class UploadFormComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.form.get('file').value);
 
-    this.uploadService.upload(formData, this.destinationUrl).subscribe(
-      (res) => this.uploadResponse = res,
-      (err) => this.error = err
+    this.uploadService.upload(formData, this.proxyUrl + this.destinationUrl).subscribe(
+      (res) => {
+        if (res.status === 'progress') {
+          this.uploadResponse = res;
+        }
+       },
+      (err) => {
+        this.error = err;
+      }
     );
   }
 

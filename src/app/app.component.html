@@ -17,4 +17,7 @@
 
 <!--*** graphs ***-->
 
-<app-graphs *ngIf="this.toggle"></app-graphs>
+<div *ngIf="this.toggle">
+  {{file}}
+  <app-graphs></app-graphs>
+</div>
