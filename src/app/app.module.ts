@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // remote communication
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +16,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { GraphsComponent } from './graphs/graphs.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +30,8 @@ import { UploadFormComponent } from './upload-form/upload-form.component';
     HighchartsChartModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
     TooltipModule.forRoot()
   ],
   providers: [],

@@ -2,6 +2,9 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 .highcharts-credits {
-    display: none !important;
-  }
-  
+  display: none !important;
+}
+
+html {
+  font-size: 12px;
+}

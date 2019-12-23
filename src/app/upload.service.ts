@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import {HttpClient, HttpHeaders, HttpEventType} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 /**
- * referenced 
+ * referenced
  * https://www.techiediaries.com/angular-file-upload-progress-bar/
  * https://stackoverflow.com/questions/51789871/download-file-from-http-post-request-angular-6
  */
@@ -18,7 +18,7 @@ export class UploadService {
 
   private fileSubject: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
   }
 
   public upload(body, url: string) {
@@ -29,20 +29,20 @@ export class UploadService {
       reportProgress: true,
       observe: 'events'
     }).pipe(map((event) => {
-      switch (event.type) {
-        case HttpEventType.UploadProgress: {
-          const progress = Math.round(100 * event.loaded / event.total);
-          return { status: 'progress', message: `${progress}` };
+        switch (event.type) {
+          case HttpEventType.UploadProgress: {
+            const progress = Math.round(100 * event.loaded / event.total);
+            return {status: 'progress', message: `${progress}`};
+          }
+          case HttpEventType.Response: {
+            this.fileSubject.next(event.body);
+            return {status: 'result', message: event.body};
+          }
+          default: {
+            return {status: 'error', message: `${event.type}`};
+          }
         }
-        case HttpEventType.Response: {
-          this.fileSubject.next(event.body);
-          return {status: 'result', message: event.body };
-        }
-        default: {
-          return { status: 'error', message: `${event.type}` };
-        }
-      }
-    })
+      })
     );
   }
 
