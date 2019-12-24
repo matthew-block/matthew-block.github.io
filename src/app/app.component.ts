@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
   }
 
-  private loadOutput(): void {
+  loadOutput(): void {
    this.http.get('assets/output.xml', {responseType: 'text'})
       .subscribe(data => {
         this.file = data;
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  private loadError(): void {
+  loadError(): void {
     this.http.get('assets/error.xml', {responseType: 'text'})
       .subscribe(data => {
         this.file = data;

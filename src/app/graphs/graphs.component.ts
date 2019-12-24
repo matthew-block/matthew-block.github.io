@@ -21,7 +21,7 @@ export class GraphsComponent implements OnInit {
   file: string;
   private data;
   private toggle = false;
-  private errorMessage: string = null;
+  errorMessage: string = null;
 
   constructor(private spinner: NgxSpinnerService) {
   }
