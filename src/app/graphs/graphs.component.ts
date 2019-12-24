@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 
-import { HttpClient } from '@angular/common/http';
-import { parseString } from 'xml2js';
+import {HttpClient} from '@angular/common/http';
+import {parseString} from 'xml2js';
 
 import * as Highcharts from 'highcharts';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
+import HC_more from 'highcharts/highcharts-more';
+
+HC_more(Highcharts);
 
 @Component({
   selector: 'app-graphs',
@@ -14,15 +17,19 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class GraphsComponent implements OnInit {
 
+  @Input()
+  file: string;
   private data;
   private toggle = false;
+  private errorMessage: string = null;
 
-  constructor(private http: HttpClient, private spinner: NgxSpinnerService) {
+  constructor(private spinner: NgxSpinnerService) {
   }
 
   // --- chart data ---
   c1: typeof Highcharts;
   c1o: Highcharts.Options;
+  c1NotFound: string[];
 
   c2: typeof Highcharts;
   c2o: Highcharts.Options;
@@ -30,108 +37,78 @@ export class GraphsComponent implements OnInit {
   c3: typeof Highcharts;
   c3o: Highcharts.Options;
 
-  c4: typeof Highcharts;
-  c4o: Highcharts.Options;
-
   ngOnInit() {
     this.toggle = false;
     this.spinner.show();
-    this.http.get('assets/test.xml', {responseType: 'text'})
-      .subscribe(data => {
-        parseString(data, { explicitArray: false }, (error, result) => {
-          this.data = result;
 
-          const c1Data = [];
-          const notFound = [];
+    parseString(this.file, {explicitArray: false}, (error, result) => {
+      this.data = result;
 
-          this.data.source.summaries.summary.forEach((summary) => {
-            if (+summary.total !== 0) {
-              c1Data.push({name: summary.description, y: +summary.total});
-            } else {
-              notFound.push(summary.description);
-            }
-          });
-
-          console.log(notFound);
-          console.log(c1Data);
-          console.log(this.data);
-
-
-          this.c1 = Highcharts;
-          this.c1o = {
-            title: { text: 'Example'},
-            series: [{
-              data: [{
-                name: 'UNSAFE_FUNCTION',
-                y: 5
-              }, {
-                name: 'UNSAFE_FUNCTION_USED_SAFELY',
-                y: 5
-              }, {
-                name: 'SAFE_FUNCTION',
-                y: 5
-              }, {
-                name: 'RACE_CONDITION',
-                y: 5
-              }],
-              type: 'pie'
-            }]
-          };
-
-          const ufdata = [];
-          for (let count = 0; count < 7; ++count) {
-            ufdata.push({
-              name: 'ex',
-              y: +4});
+      const c1Data = [];
+      this.c1NotFound = [];
+      if (this.data.error) {
+        this.errorMessage = this.data.error;
+      } else {
+        this.data.source.summaries.summary.forEach((summary) => {
+          if (+summary.total !== 0) {
+            c1Data.push({name: summary.description, y: +summary.total});
+          } else {
+            this.c1NotFound.push(summary.description);
           }
-
-          this.c2 = Highcharts;
-          this.c2o = {
-            title: { text: 'Example'},
-            series: [{
-              name: 'Unsafe Functions',
-              data: ufdata,
-              type: 'column'
-            }]
-          };
-
-          this.c4 = Highcharts;
-          this.c4o = {
-            title: { text: 'Example'},
-            series: [{
-              data: ufdata,
-              type: 'pie'
-            }]
-          };
-
-          this.c3 = Highcharts;
-          this.c3o = {
-            title: { text: 'Example'},
-            series: [{
-              name: 'Vulnerabilities',
-              data: [{
-                name: 'UNSAFE_FUNCTION',
-                y: 5
-              }, {
-                name: 'UNSAFE_FUNCTION_USED_SAFELY',
-                y: 5
-              }, {
-                name: 'SAFE_FUNCTION',
-                y: 5
-              }, {
-                name: 'RACE_CONDITION',
-                y: 5
-              }],
-              type: 'bar',
-              dataLabels: { enabled: true },
-            }]
-          };
-
-          this.toggle = true;
-          this.spinner.hide();
-
         });
-      });
-  }
 
+        this.c1 = Highcharts;
+        this.c1o = {
+          title: {text: 'Security Vulnerability Prevalence'},
+          series: [{
+            data: c1Data,
+            type: 'pie'
+          }]
+        };
+
+        const ufData = [];
+        this.data.source.summaries.summary.forEach((summary) => {
+          if (summary.description === 'UNSAFE_FUNCTION' && summary.attributes.attribute) {
+            summary.attributes.attribute.forEach((attribute) => {
+              ufData.push({name: attribute.name, y: +attribute.total});
+            });
+          }
+        });
+
+        this.c3 = Highcharts;
+        this.c3o = {
+          title: {text: 'Density of Vulnerabilities by Function'},
+          series: [{
+            name: 'Coming Soon!',
+            data: [{
+              name: 'Coming Soon!',
+              value: 100
+            },
+              {
+                name: 'Other',
+                value: 40
+              },
+              {
+                name: 'Other',
+                value: 35
+              }],
+            type: 'packedbubble'
+          }]
+        };
+
+        this.c2 = Highcharts;
+        this.c2o = {
+          title: {text: 'Unsafe Functions'},
+          series: [{
+            data: ufData,
+            type: 'pie'
+          }]
+        };
+      }
+
+      this.toggle = true;
+      this.spinner.hide();
+
+    });
+  }
 }

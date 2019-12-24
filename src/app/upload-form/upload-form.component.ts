@@ -13,7 +13,7 @@ export class UploadFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
-  destinationUrl: string = 'http://18.220.134.135/returnTestResults';
+  destinationUrl = 'http://18.220.134.135/parse';
   // TODO MB fix cors on backend
   proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   form: FormGroup;

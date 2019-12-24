@@ -1,42 +1,34 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" *ngIf="!this.errorMessage">
     <div class="col-md-6 col-12">
-      <highcharts-chart *ngIf="toggle"
-                        [Highcharts]="c1"
-                        [options]="c1o"
-
-                        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <highcharts-chart [Highcharts]="c1" [options]="c1o" style="width: 100%; height: 400px; display: block;"></highcharts-chart>
     </div>
 
     <div class="col-md-6 col-12">
-      <highcharts-chart *ngIf="toggle"
-                        [Highcharts]="c2"
-                        [options]="c2o"
-
-                        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <highcharts-chart [Highcharts]="c2" [options]="c2o" style="width: 100%; height: 400px; display: block;"></highcharts-chart>
     </div>
 
     <div class="col-md-6 col-12">
-      <highcharts-chart *ngIf="toggle"
-                        [Highcharts]="c3"
-                        [options]="c3o"
-
-                        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <ul class="list-group">
+        <li class="list-group-item active">Number of Vulnerabilites by Type</li>
+        <li *ngFor="let vulnerability of this.data.source.summaries.summary" class="list-group-item">
+          {{vulnerability.description}}
+          <span class="badge badge-primary badge-pill">{{vulnerability.total}}</span>
+        </li>
+      </ul>
     </div>
 
     <div class="col-md-6 col-12">
-      <highcharts-chart *ngIf="toggle"
-                        [Highcharts]="c4"
-                        [options]="c4o"
-
-                        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <highcharts-chart [Highcharts]="c3" [options]="c3o" style="width: 100%; height: 400px; display: block;"></highcharts-chart>
     </div>
 
   </div>
-</div>
+
+  <div class="row" *ngIf="this.errorMessage">
+    <div class="col-12">
+      <h2 class="text-center">An error has occurred: {{this.errorMessage}}</h2>
+    </div>
+  </div>
+  </div>
 
 <ngx-spinner></ngx-spinner>

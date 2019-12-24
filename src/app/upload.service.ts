@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {HttpClient, HttpHeaders, HttpEventType} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 /**
  * referenced
@@ -16,7 +16,7 @@ import {Subject} from 'rxjs';
 
 export class UploadService {
 
-  private fileSubject: Subject<string> = new Subject<string>();
+  private fileSubject: BehaviorSubject<string> = new BehaviorSubject<string>('none');
 
   constructor(private http: HttpClient) {
   }
@@ -46,7 +46,7 @@ export class UploadService {
     );
   }
 
-  public getUploadedFiles(): Subject<string> {
+  public getFileSubject(): BehaviorSubject<string> {
     return this.fileSubject;
   }
 }
