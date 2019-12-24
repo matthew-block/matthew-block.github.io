@@ -19,7 +19,7 @@ export class GraphsComponent implements OnInit {
 
   @Input()
   file: string;
-  private data;
+  data;
   private toggle = false;
   errorMessage: string = null;
 

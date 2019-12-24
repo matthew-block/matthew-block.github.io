@@ -25,6 +25,8 @@
     "ngx-bootstrap": "^5.2.0",
     "ngx-spinner": "^8.1.0",
     "rxjs": "~6.4.0",
+    "stream": "0.0.2",
+    "timers": "^0.1.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
