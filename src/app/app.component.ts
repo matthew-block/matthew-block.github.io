@@ -14,12 +14,11 @@ export class AppComponent implements OnInit {
   file = '';
 
   constructor(private uploadService: UploadService, private http: HttpClient) {
-    uploadService.getFileSubject().subscribe(file => {
-      if (file !== 'none') {
-        this.file = file;
-        this.toggle = true;
-      }
-    });
+  }
+
+  newResponse(response: string) {
+    this.file = response;
+    this.toggle = true;
   }
 
   ngOnInit() {

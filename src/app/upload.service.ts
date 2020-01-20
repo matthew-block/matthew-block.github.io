@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient, HttpHeaders, HttpEventType} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 
 /**
  * referenced
@@ -16,37 +15,42 @@ import {BehaviorSubject, Subject} from 'rxjs';
 
 export class UploadService {
 
-  private fileSubject: BehaviorSubject<string> = new BehaviorSubject<string>('none');
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
+  public upload(file: File, url): {status: Observable<number>, file: Observable<any>} {
+    // create a new multipart-form for every file
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
 
-  public upload(body, url: string) {
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-    return this.http.post(url, body, {
-      responseType: 'text',
-      headers,
+    // create a http-post request and pass the form
+    const req = new HttpRequest('POST', url, formData, {
       reportProgress: true,
-      observe: 'events'
-    }).pipe(map((event) => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress: {
-            const progress = Math.round(100 * event.loaded / event.total);
-            return {status: 'progress', message: `${progress}`};
-          }
-          case HttpEventType.Response: {
-            this.fileSubject.next(event.body);
-            return {status: 'result', message: event.body};
-          }
-          default: {
-            return {status: 'error', message: `${event.type}`};
-          }
-        }
-      })
-    );
-  }
+      responseType: 'text'
+    });
 
-  public getFileSubject(): BehaviorSubject<string> {
-    return this.fileSubject;
+    // create a new progress-subject for every file
+    const progress = new Subject<number>();
+    const response = new Subject<any>();
+
+    // send the http-request and subscribe for progress-updates
+    this.http.request(req).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+
+        // calculate the progress percentage
+        const percentDone = Math.round(100 * event.loaded / event.total);
+
+        // pass the percentage into the progress-stream
+        progress.next(percentDone);
+      } else if (event instanceof HttpResponse) {
+
+        // Close the progress-stream if we get an answer form the API
+        progress.complete();
+        response.next(event.body);
+        response.complete();
+      }
+    });
+
+    // return the map of progress.observables
+    return {status: progress.asObservable(), file: response.asObservable()};
   }
 }

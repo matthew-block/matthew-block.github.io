@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
-import { FormBuilder, FormGroup } from  '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from  '@angular/forms';
 import { UploadService } from  '../upload.service';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -13,17 +14,17 @@ export class UploadFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
 
-  destinationUrl = 'http://18.220.134.135/parse';
-  // TODO MB fix cors on backend
-  proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  destinationUrl = 'http://3.136.231.105:8080/parse';
+  // destinationUrl = 'http://localhost:8080/parse';
+
   form: FormGroup;
-  error: { status: string, message };
-  uploadResponse: { status: string, message };
+  uploadStatus: Observable<number>;
+
+  @Output() newResponse = new EventEmitter<string>();
+
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      file: ['']
-    });
+    this.form = this.formBuilder.group({file: ['']});
   }
 
   onFileChange(event) {
@@ -34,19 +35,11 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.form.get('file').value);
-
-    this.uploadService.upload(formData, this.proxyUrl + this.destinationUrl).subscribe(
-      (res) => {
-        if (res.status === 'progress') {
-          this.uploadResponse = res;
-        }
-       },
-      (err) => {
-        this.error = err;
-      }
-    );
+    const response = this.uploadService.upload(this.form.get('file').value, this.destinationUrl);
+    this.uploadStatus = response.status;
+    response.file.subscribe(file => {
+      this.newResponse.emit(file);
+    });
   }
 
 }

@@ -23,8 +23,7 @@ export class GraphsComponent implements OnInit {
   private toggle = false;
   errorMessage: string = null;
 
-  constructor(private spinner: NgxSpinnerService) {
-  }
+  constructor(private spinner: NgxSpinnerService) {}
 
   // --- chart data ---
   c1: typeof Highcharts;
@@ -68,7 +67,7 @@ export class GraphsComponent implements OnInit {
 
         const ufData = [];
         this.data.source.summaries.summary.forEach((summary) => {
-          if (summary.description === 'UNSAFE_FUNCTION' && summary.attributes.attribute) {
+          if (summary.description === 'UNSAFE_FUNCTION' && summary.attributes) {
             summary.attributes.attribute.forEach((attribute) => {
               ufData.push({name: attribute.name, y: +attribute.total});
             });

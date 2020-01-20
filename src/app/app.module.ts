@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // remote communication
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // highcharts
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -30,6 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HighchartsChartModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
     TooltipModule.forRoot()
