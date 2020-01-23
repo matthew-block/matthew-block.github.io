@@ -23,7 +23,7 @@ export class GraphsComponent implements OnInit {
   private toggle = false;
   errorMessage: string = null;
 
-  constructor(private spinner: NgxSpinnerService) {}
+  constructor() {}
 
   // --- chart data ---
   c1: typeof Highcharts;
@@ -38,7 +38,6 @@ export class GraphsComponent implements OnInit {
 
   ngOnInit() {
     this.toggle = false;
-    this.spinner.show();
 
     parseString(this.file, {explicitArray: false}, (error, result) => {
       this.data = result;
@@ -106,8 +105,6 @@ export class GraphsComponent implements OnInit {
       }
 
       this.toggle = true;
-      this.spinner.hide();
-
     });
   }
 }

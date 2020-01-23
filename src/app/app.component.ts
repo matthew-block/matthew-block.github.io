@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { UploadService } from './upload.service';
 import {HttpClient} from '@angular/common/http';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,13 @@ export class AppComponent implements OnInit {
   dev = false;
   file = '';
 
-  constructor(private uploadService: UploadService, private http: HttpClient) {
+  constructor(private uploadService: UploadService, private http: HttpClient, private spinner: NgxSpinnerService) {
   }
 
   newResponse(response: string) {
     this.file = response;
     this.toggle = true;
+    this.spinner.hide();
   }
 
   ngOnInit() {

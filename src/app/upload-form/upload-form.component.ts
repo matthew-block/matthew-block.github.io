@@ -3,6 +3,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from  '@angular/forms';
 import { UploadService } from  '../upload.service';
 import {Observable} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Observable} from 'rxjs';
 })
 export class UploadFormComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private uploadService: UploadService) { }
+  constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private spinner: NgxSpinnerService) { }
 
   destinationUrl = 'https://stoutresearch.tech:8443/parse';
   // destinationUrl = 'http://localhost:8080/parse';
@@ -35,6 +36,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner.show();
     const response = this.uploadService.upload(this.form.get('file').value, this.destinationUrl);
     this.uploadStatus = response.status;
     response.file.subscribe(file => {
