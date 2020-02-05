@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { UploadService } from './upload.service';
 import {HttpClient} from '@angular/common/http';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -40,5 +41,10 @@ export class AppComponent implements OnInit {
         this.file = data;
         this.toggle = true;
       });
+  }
+
+  download() {
+    const blob = new Blob([this.file], {type : 'text/xml'});
+    saveAs(blob, 'test.xml');
   }
 }

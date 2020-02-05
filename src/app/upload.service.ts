@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 
 /**
@@ -48,7 +48,11 @@ export class UploadService {
         response.next(event.body);
         response.complete();
       }
-    });
+    }, (error) => {
+      progress.complete();
+      response.next('<?xml version=\"1.0\"?><error>The server responded with an error.</error>');
+      response.complete();
+      });
 
     // return the map of progress.observables
     return {status: progress.asObservable(), file: response.asObservable()};
