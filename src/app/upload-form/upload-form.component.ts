@@ -22,7 +22,7 @@ export class UploadFormComponent implements OnInit {
   uploadStatus: Observable<number>;
 
   @Output() newResponse = new EventEmitter<string>();
-
+  fileNeeded = false;
 
   ngOnInit() {
     this.form = this.formBuilder.group({file: ['']});
@@ -36,12 +36,16 @@ export class UploadFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.spinner.show();
-    const response = this.uploadService.upload(this.form.get('file').value, this.destinationUrl);
-    this.uploadStatus = response.status;
-    response.file.subscribe(file => {
-      this.newResponse.emit(file);
-    });
+    if (this.form.get('file').value !== '') {
+      this.spinner.show();
+      const response = this.uploadService.upload(this.form.get('file').value, this.destinationUrl);
+      this.uploadStatus = response.status;
+      response.file.subscribe(file => {
+        this.newResponse.emit(file);
+      });
+    } else {
+      this.fileNeeded = true;
+    }
   }
 
 }

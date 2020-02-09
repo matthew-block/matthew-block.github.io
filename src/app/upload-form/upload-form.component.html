@@ -1,6 +1,7 @@
 <div>
   <p>{{uploadStatus | async}}</p>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
+      <div *ngIf="fileNeeded">Please select a file before submitting.</div>
             <input type="file" class="form-control-file" name='file' aria-describedby="repoHelp"
                 placeholder="Upload Zip" (change)="onFileChange($event)">
                 <br/>
