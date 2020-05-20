@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule } from  '@angular/forms';
-import { UploadService } from  '../upload.service';
+import { UploadService } from '../../upload.service';
 import {Observable} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 

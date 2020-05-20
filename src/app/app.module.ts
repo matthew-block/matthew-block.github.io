@@ -13,14 +13,14 @@ import { HighchartsChartModule } from 'highcharts-angular';
 
 // bootstrap modules
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { GraphsComponent } from './graphs/graphs.component';
-import { UploadFormComponent } from './upload-form/upload-form.component';
+import { GraphsComponent } from './components/graphs/graphs.component';
+import { UploadFormComponent } from './components/upload-form/upload-form.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HomeComponent } from "./home/home.component";
-import { UploadComponent } from './upload/upload.component';
-import { ResultsComponent } from './results/results.component';
-import { HistoricalResultsComponent } from './historical-results/historical-results.component';
+import { HomeComponent } from "./components/home/home.component";
+import { UploadComponent } from './components/upload/upload.component';
+import { ResultsComponent } from './components/results/results.component';
+import { HistoricalResultsComponent } from './components/historical-results/historical-results.component';
 
 @NgModule({
   declarations: [
