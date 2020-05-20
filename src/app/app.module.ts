@@ -17,12 +17,20 @@ import { GraphsComponent } from './graphs/graphs.component';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HomeComponent } from "./home/home.component";
+import { UploadComponent } from './upload/upload.component';
+import { ResultsComponent } from './results/results.component';
+import { HistoricalResultsComponent } from './historical-results/historical-results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GraphsComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    HomeComponent,
+    UploadComponent,
+    ResultsComponent,
+    HistoricalResultsComponent
   ],
   imports: [
     BrowserModule,
