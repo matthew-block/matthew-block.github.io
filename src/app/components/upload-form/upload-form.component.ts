@@ -15,7 +15,7 @@ export class UploadFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private uploadService: UploadService, private spinner: NgxSpinnerService) { }
 
-  destinationUrl = 'https://stoutresearch.tech/parse';
+  destinationUrl = 'https://3.16.150.27/parse';
   // destinationUrl = 'http://localhost:8080/parse';
 
   form: FormGroup;
