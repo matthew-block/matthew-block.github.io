@@ -1,22 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
+import { HttpClient } from "@angular/common/http";
+import { parseString } from "xml2js";
 
-import {HttpClient} from '@angular/common/http';
-import {parseString} from 'xml2js';
-
-import * as Highcharts from 'highcharts';
-import {NgxSpinnerService} from 'ngx-spinner';
-import HC_more from 'highcharts/highcharts-more';
+import * as Highcharts from "highcharts";
+import { NgxSpinnerService } from "ngx-spinner";
+import HC_more from "highcharts/highcharts-more";
 
 HC_more(Highcharts);
 
 @Component({
-  selector: 'app-graphs',
-  templateUrl: './graphs.component.html',
-  styleUrls: ['./graphs.component.scss']
+  selector: "app-graphs",
+  templateUrl: "./graphs.component.html",
+  styleUrls: ["./graphs.component.scss"],
 })
 export class GraphsComponent implements OnInit {
-
   @Input()
   file: string;
   data;
@@ -39,7 +37,7 @@ export class GraphsComponent implements OnInit {
   ngOnInit() {
     this.toggle = false;
 
-    parseString(this.file, {explicitArray: false}, (error, result) => {
+    parseString(this.file, { explicitArray: false }, (error, result) => {
       this.data = result;
 
       const c1Data = [];
@@ -49,7 +47,7 @@ export class GraphsComponent implements OnInit {
       } else {
         this.data.source.summaries.summary.forEach((summary) => {
           if (+summary.total !== 0) {
-            c1Data.push({name: summary.description, y: +summary.total});
+            c1Data.push({ name: summary.description, y: +summary.total });
           } else {
             this.c1NotFound.push(summary.description);
           }
@@ -57,50 +55,58 @@ export class GraphsComponent implements OnInit {
 
         this.c1 = Highcharts;
         this.c1o = {
-          title: {text: 'Security Vulnerability Prevalence'},
-          series: [{
-            data: c1Data,
-            type: 'pie'
-          }]
+          title: { text: "Security Vulnerability Prevalence" },
+          series: [
+            {
+              data: c1Data,
+              type: "pie",
+            },
+          ],
         };
 
         const ufData = [];
         this.data.source.summaries.summary.forEach((summary) => {
-          if (summary.description === 'UNSAFE_FUNCTION' && summary.attributes) {
+          if (summary.description === "UNSAFE_FUNCTION" && summary.attributes) {
             summary.attributes.attribute.forEach((attribute) => {
-              ufData.push({name: attribute.name, y: +attribute.total});
+              ufData.push({ name: attribute.name, y: +attribute.total });
             });
           }
         });
 
         this.c3 = Highcharts;
         this.c3o = {
-          title: {text: 'Density of Vulnerabilities by Function'},
-          series: [{
-            name: 'Coming Soon!',
-            data: [{
-              name: 'Coming Soon!',
-              value: 100
+          title: { text: "Density of Vulnerabilities by Function" },
+          series: [
+            {
+              name: "Coming Soon!",
+              data: [
+                {
+                  name: "Coming Soon!",
+                  value: 100,
+                },
+                {
+                  name: "Other",
+                  value: 40,
+                },
+                {
+                  name: "Other",
+                  value: 35,
+                },
+              ],
+              type: "packedbubble",
             },
-              {
-                name: 'Other',
-                value: 40
-              },
-              {
-                name: 'Other',
-                value: 35
-              }],
-            type: 'packedbubble'
-          }]
+          ],
         };
 
         this.c2 = Highcharts;
         this.c2o = {
-          title: {text: 'Unsafe Functions'},
-          series: [{
-            data: ufData,
-            type: 'pie'
-          }]
+          title: { text: "Unsafe Functions" },
+          series: [
+            {
+              data: ufData,
+              type: "pie",
+            },
+          ],
         };
       }
 

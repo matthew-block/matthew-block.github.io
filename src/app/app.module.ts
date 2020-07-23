@@ -14,7 +14,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 // bootstrap modules
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { GraphsComponent } from './components/graphs/graphs.component';
-import { UploadFormComponent } from './components/upload-form/upload-form.component';
+
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from "./components/home/home.component";
@@ -26,7 +26,6 @@ import { HistoricalResultsComponent } from './components/historical-results/hist
   declarations: [
     AppComponent,
     GraphsComponent,
-    UploadFormComponent,
     HomeComponent,
     UploadComponent,
     ResultsComponent,

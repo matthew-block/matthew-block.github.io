@@ -1,1 +1,25 @@
-<p>upload works!</p>
+<div>
+	<p>{{uploadStatus | async}}</p>
+	  <form [formGroup]="form" (ngSubmit)="onSubmitUpload()" class="form-group">
+		<div *ngIf="fileNeeded">Please select a file before submitting.</div>
+			  <input type="file" class="form-control-file" name='file' aria-describedby="repoHelp"
+				  placeholder="Upload Zip" (change)="onFileChange($event)">
+				  <br/>
+			  <button type="submit" class="btn btn-primary">Submit File</button>
+	  </form>
+  
+	  <form [formGroup]="form" (ngSubmit)="onSubmitLink()" class="form-group">
+		  <div *ngIf="fileNeeded">Please select a file before submitting.</div>
+		  <input type="text" class="" name='url' aria-describedby="repoHelp"
+				 placeholder="URL" (change)="onFileChange($event)">
+		  <br/>
+		  <input type="text" class="" name='username' aria-describedby="repoHelp"
+				 placeholder="Username" (change)="onFileChange($event)">
+		  <input type="password" class="form-control-file" name='password' aria-describedby="repoHelp"
+				 placeholder="Password" (change)="onFileChange($event)">
+		  <br/>
+		  <button type="submit" class="btn btn-primary">Submit File</button>
+		</form>
+  
+  </div>
+  

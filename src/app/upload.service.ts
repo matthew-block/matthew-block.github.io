@@ -17,12 +17,13 @@ export class UploadService {
 
   constructor(private http: HttpClient) {}
 
-  public upload(file: File, url): {status: Observable<number>, file: Observable<any>} {
+  public uploadFile(file: File, url): {status: Observable<number>, file: Observable<any>} {
     // create a new multipart-form for every file
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
 
-    // create a http-post request and pass the form
+	// create a http-post request and pass the form
+	url = url + 'upload'
     const req = new HttpRequest('POST', url, formData, {
       reportProgress: true,
       responseType: 'text'
@@ -57,4 +58,45 @@ export class UploadService {
     // return the map of progress.observables
     return {status: progress.asObservable(), file: response.asObservable()};
   }
+
+  public uploadLink(link: string, username: string, password: string, url): {status: Observable<number>, file: Observable<any>} {
+    // create a new multipart-form for every file
+    const formData: FormData = new FormData();
+    formData.append('url', link);
+    formData.append('username', username);
+    formData.append('password', password);
+
+	// create a http-post request and pass the form
+	url = url + "link"
+    const req = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+
+    // create a new progress-subject for every file
+	const response = new Subject<any>();
+	const progress = new Subject<number>();
+
+    // send the http-request and subscribe for progress-updates
+    this.http.request(req).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+
+        // calculate the progress percentage
+      } else if (event instanceof HttpResponse) {
+
+        // Close the progress-stream if we get an answer form the API
+        response.next(event.body);
+        response.complete();
+      }
+    }, (error) => {
+      response.next('<?xml version=\"1.0\"?><error>The server responded with an error.</error>');
+      response.complete();
+      });
+
+    // return the map of progress.observables
+    return {status: progress.asObservable(), file: response.asObservable()};
+  }
+
+
+
 }
