@@ -19,8 +19,8 @@ export class UploadComponent implements OnInit {
   ) {}
 
   //destinationUrl = 'https://sf.nimmo.us/parse';
-//   destinationUrl = "http://localhost:8080/";
-    destinationUrl = "http://69.55.55.224:8080/";
+  destinationUrl = "http://localhost:8080/";
+    // destinationUrl = "http://69.55.55.224:8080/";
 
   form: FormGroup;
   uploadStatus: Observable<number>;

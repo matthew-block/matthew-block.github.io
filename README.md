@@ -10,3 +10,5 @@ ng build --prod --base-href 'https://matthew-block.github.io/'
 Publish the site with:
 
 ngh --branch=master
+
+Or just build and post in one command by running updatesite.ps1

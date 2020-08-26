@@ -21,7 +21,7 @@ export class GraphsComponent implements OnInit {
   private toggle = false;
   errorMessage: string = null;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   // --- chart data ---
   c1: typeof Highcharts;
@@ -39,6 +39,17 @@ export class GraphsComponent implements OnInit {
 
     parseString(this.file, { explicitArray: false }, (error, result) => {
       this.data = result;
+
+      if(this.data === undefined) {
+
+        this.http
+          .get("../assets/output.xml", { responseType: "text" })
+          .subscribe((data) => {
+			this.data = data
+          });
+	  }
+	  
+	  // Loading the vulnerability pie chart: chart 1
 
       const c1Data = [];
       this.c1NotFound = [];
@@ -96,7 +107,10 @@ export class GraphsComponent implements OnInit {
               type: "packedbubble",
             },
           ],
-        };
+		};
+		
+
+		// Loading unsafe functions pie chart
 
         this.c2 = Highcharts;
         this.c2o = {
