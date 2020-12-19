@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   // --- layout ---
   toggle = false;
-  dev = false;
+  dev = true;
   file = '';
 
   constructor(private uploadService: UploadService, private http: HttpClient, private spinner: NgxSpinnerService) {

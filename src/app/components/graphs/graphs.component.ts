@@ -6,6 +6,7 @@ import { parseString } from "xml2js";
 import * as Highcharts from "highcharts";
 import { NgxSpinnerService } from "ngx-spinner";
 import HC_more from "highcharts/highcharts-more";
+import { environment } from 'src/environments/environment';
 
 HC_more(Highcharts);
 
@@ -21,7 +22,9 @@ export class GraphsComponent implements OnInit {
   private toggle = false;
   errorMessage: string = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+
+  }
 
   // --- chart data ---
   c1: typeof Highcharts;

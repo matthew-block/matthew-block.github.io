@@ -68,10 +68,11 @@ export class UploadService {
 
 	// create a http-post request and pass the form
 	url = url + "link"
+	console.log(url);
     const req = new HttpRequest('POST', url, formData, {
       reportProgress: true,
       responseType: 'text'
-    });
+    }); 
 
     // create a new progress-subject for every file
 	const response = new Subject<any>();
