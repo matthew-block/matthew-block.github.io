@@ -28,7 +28,8 @@ export class UploadComponent implements OnInit {
   }
 
   //   destinationUrl = "http://localhost:8080/";
-  destinationUrl = "http://18.219.29.236:8080/";
+//   destinationUrl = "http://18.219.29.236:8080/";
+  destinationUrl = "https://api.stoutcodeanalyzer.com/";
 
   form: FormGroup;
   uploadStatus: Observable<number>;
