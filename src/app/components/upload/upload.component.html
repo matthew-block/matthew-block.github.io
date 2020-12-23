@@ -1,5 +1,6 @@
 <div>
   <p>{{ uploadStatus | async }}</p>
+  <h3>Checkout by uploading a .zip/.tar.gz file</h3>
   <form [formGroup]="form" (ngSubmit)="onSubmitUpload()" class="form-group">
     <div *ngIf="fileNeeded">Please select a file before submitting.</div>
     <input
@@ -14,8 +15,9 @@
     <button type="submit" class="btn btn-primary">Submit File</button>
   </form>
 
+
+  <h3>Checkout by .git or .zip link</h3>
   <form [formGroup]="form" (ngSubmit)="onSubmitLink()" class="form-group">
-    <div *ngIf="fileNeeded">Please select a file before submitting.</div>
     <input
       type="text"
       class=""
@@ -42,6 +44,6 @@
       (change)="onFileChange($event)"
     />
     <br />
-    <button type="submit" class="btn btn-primary">Submit File</button>
+    <button type="submit" class="btn btn-primary">Submit Link</button>
   </form>
 </div>
