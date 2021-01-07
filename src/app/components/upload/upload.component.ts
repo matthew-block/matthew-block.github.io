@@ -13,6 +13,9 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./upload.component.scss"],
 })
 export class UploadComponent implements OnInit {
+  @Output() newResponse = new EventEmitter<string>();
+  fileNeeded = false;
+
   dev: boolean;
 
   constructor(
@@ -28,14 +31,11 @@ export class UploadComponent implements OnInit {
   }
 
   //   destinationUrl = "http://localhost:8080/";
-//   destinationUrl = "http://18.219.29.236:8080/";
+  //   destinationUrl = "http://18.219.29.236:8080/";
   destinationUrl = "https://api.stoutcodeanalyzer.com/";
 
   form: FormGroup;
   uploadStatus: Observable<number>;
-
-  @Output() newResponse = new EventEmitter<string>();
-  fileNeeded = false;
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -47,25 +47,27 @@ export class UploadComponent implements OnInit {
   }
 
   onFileChange(event) {
-    if (event.target.files && event.target.files[0] > 0) {
+    if (event.target.files && event.target.files[0] !== undefined) {
       const file = event.target.files[0];
       this.form.get("file").setValue(file);
     }
 
-    if (event.target.form) {
+    if (event.target.form !== undefined) {
       this.form.get("url").setValue(event.target.form[0].value);
+
       this.form.get("username").setValue(event.target.form[1].value);
+
       this.form.get("password").setValue(event.target.form[2].value);
-    }
+    } 
+
   }
-
+ 
   onSubmitUpload() {
-    if (this.form.get("file").value !== "") {
+    if (this.form.get("file").value !== undefined) {
       this.spinner.show();
-
       const response = this.uploadService.uploadFile(
         this.form.get("file").value,
-        this.destinationUrl + "upload"
+        this.destinationUrl
       );
       this.uploadStatus = response.status;
       response.file.subscribe((file) => {
@@ -77,7 +79,8 @@ export class UploadComponent implements OnInit {
   }
 
   onSubmitLink() {
-    let sendUrl = this.destinationUrl;
+	let sendUrl = this.destinationUrl;
+	console.log(sendUrl)
     if (
       this.form.get("url").value !== null &&
       this.form.get("url").value !== ""
@@ -90,7 +93,6 @@ export class UploadComponent implements OnInit {
         this.form.get("password").value,
         sendUrl
       );
-      console.log(this.form.get("url").value);
       this.uploadStatus = response.status;
       response.file.subscribe((file) => {
         this.newResponse.emit(file);

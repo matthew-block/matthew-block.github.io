@@ -1,49 +1,59 @@
-<div>
-  <p>{{ uploadStatus | async }}</p>
-  <h3>Checkout by uploading a .zip/.tar.gz file</h3>
-  <form [formGroup]="form" (ngSubmit)="onSubmitUpload()" class="form-group">
-    <div *ngIf="fileNeeded">Please select a file before submitting.</div>
-    <input
-      type="file"
-      class="form-control-file"
-      name="file"
-      aria-describedby="repoHelp"
-      placeholder="Upload Zip"
-      (change)="onFileChange($event)"
-    />
-    <br />
-    <button type="submit" class="btn btn-primary">Submit File</button>
-  </form>
 
 
-  <h3>Checkout by .git or .zip link</h3>
-  <form [formGroup]="form" (ngSubmit)="onSubmitLink()" class="form-group">
-    <input
-      type="text"
-      class=""
-      name="url"
-      aria-describedby="repoHelp"
-      placeholder="URL"
-      (change)="onFileChange($event)"
-    />
-    <br />
-    <input
-      type="text"
-      class=""
-      name="username"
-      aria-describedby="repoHelp"
-      placeholder="Username"
-      (change)="onFileChange($event)"
-    />
-    <input
-      type="password"
-      class="form-control-file"
-      name="password"
-      aria-describedby="repoHelp"
-      placeholder="Password"
-      (change)="onFileChange($event)"
-    />
-    <br />
-    <button type="submit" class="btn btn-primary">Submit Link</button>
-  </form>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+	  <h3>Checkout by uploading a .zip/.tar.gz file</h3>
+	        
+      <form [formGroup]="form" (ngSubmit)="onSubmitUpload()" class="form-group">
+        <div *ngIf="fileNeeded">Please select a file before submitting.</div>
+        <input
+          type="file"
+          class="form-control-file"
+          name="file"
+          aria-describedby="repoHelp"
+          placeholder="Upload Zip"
+          (change)="onFileChange($event)"
+		/>
+		<p>{{ uploadStatus | async }}</p>
+        <br />
+        <button type="submit" class="btn btn-primary">Submit File</button>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Checkout by .git or .zip link</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmitLink()" class="form-group">
+        <input
+          type="text"
+          class="form-control-file"
+          name="url"
+          aria-describedby="repoHelp"
+          placeholder="URL"
+          (change)="onFileChange($event)"
+		/>
+		<br/>
+        <input
+          type="text"
+          class="form-control-file"
+          name="username"
+          aria-describedby="repoHelp"
+          placeholder="Username"
+          (change)="onFileChange($event)"
+        />
+        <input
+          type="password"
+          class="form-control-file"
+          name="password"
+          aria-describedby="repoHelp"
+          placeholder="Password"
+          (change)="onFileChange($event)"
+        />
+        <br />
+        <button type="submit" class="btn btn-primary">Submit Link</button>
+      </form>
+    </div>
+  </div> 
 </div>
+  

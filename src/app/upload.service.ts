@@ -19,8 +19,10 @@ export class UploadService {
 
   public uploadFile(file: File, url): {status: Observable<number>, file: Observable<any>} {
     // create a new multipart-form for every file
-    const formData: FormData = new FormData();
+	const formData: FormData = new FormData();
+	
     formData.append('file', file, file.name);
+
 
 	// create a http-post request and pass the form
 	url = url + 'upload'
@@ -50,7 +52,8 @@ export class UploadService {
         response.complete();
       }
     }, (error) => {
-      progress.complete();
+	  progress.complete();
+	  console.log(error)
       response.next('<?xml version=\"1.0\"?><error>The server responded with an error.</error>');
       response.complete();
       });
@@ -68,7 +71,6 @@ export class UploadService {
 
 	// create a http-post request and pass the form
 	url = url + "link"
-	console.log(url);
     const req = new HttpRequest('POST', url, formData, {
       reportProgress: true,
       responseType: 'text'
